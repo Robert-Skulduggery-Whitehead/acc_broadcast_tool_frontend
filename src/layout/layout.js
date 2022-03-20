@@ -50,56 +50,10 @@ export default class Layout extends React.Component {
       });
     });
 
-    socket.on("entryList", (data) => {
+    socket.on("realTimeCarUpdate", (entryListCars) => {
       this.setState({
-        entryListCars: data.entryList,
-        carEntryCount: data.carEntryCount,
-      });
-    });
-
-    socket.on("carInfo", (carInfo) => {
-      let index = this.state.entryListCars.findIndex(
-        (x) => x.carIndex == carInfo.carIndex
-      );
-      let temp = this.state.entryListCars;
-      temp[index].carInfo = carInfo;
-      this.setState({ entryListCars: temp });
-    });
-
-    socket.on("realTimeUpdate", (realTimeUpdate) => {
-      this.setState({
-        realTimeUpdate: realTimeUpdate,
-      });
-    });
-
-    socket.on("realTimeCarUpdate", (realTimeCarUpdate) => {
-      let now = format(new Date(), "Pp");
-      /*for (let i = 0; i < this.state.entryListCars.length; i++) {
-        if (
-          getTime(now) -
-            getTime(this.state.entryListCars.carUpdate.lastUpdate) >
-          5000
-        ) {
-          socket.emit("requestUpdate");
-        }
-      }*/
-      let index = this.state.entryListCars.findIndex(
-        (x) => x.carIndex == realTimeCarUpdate.carIndex
-      );
-      if (index === -1 && this.state.entryListCars.length !== 0) {
-        socket.emit("requestUpdate");
-        this.setState({
-          entryListCars: [],
-        });
-      } else {
-        if (this.state.entryListCars.length > 0) {
-          let temp = this.state.entryListCars;
-          temp[index].carUpdate = realTimeCarUpdate;
-          this.setState({ entryListCars: temp });
-        }
-      }
-      //should reset entry list if new cars join
-      //how to reset when less cars than previous request
+        entryListCars: entryListCars
+      })
     });
 
     socket.on("trackData", (trackData) => {
