@@ -15,7 +15,7 @@ export default class CarComponent extends React.Component {
         </span>
         <span className="carNumber">{this.props.carInfo.RaceNumber}</span>
         <span className="carPositionDriverName"></span>
-        <span className="carPositionLaps"></span>
+        <span className="carPositionLaps">{this.props.carUpdate.laps}</span>
         <span className="carPositionLocation"></span>
         <span className="carPositionDelta"></span>
         <span className="carPositionCurrentLap"></span>

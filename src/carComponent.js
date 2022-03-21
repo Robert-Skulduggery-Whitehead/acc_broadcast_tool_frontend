@@ -4,63 +4,78 @@ export default class CarComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      location: "",
     };
-
-    let temp = "";
-    switch (this.props.car.carUpdate.trackPosition) {
-      case 0:
-        temp = "NONE";
-        break;
-      case 1:
-        temp = "Track";
-        break;
-      case 2:
-        temp = "Pitlane";
-        break;
-      case 3:
-        temp = "PitEntry";
-        break;
-      case 4:
-        temp = "PitExit";
-        break;
-    }
-    this.setState({
-      location: temp,
-    });
+  }
+  
+  changeFocus() {
+    this.props.socket.emit("setCar", (this.props.car.carIndex))
   }
 
   render() {
     return (
-      <div className="carComponent">
+      <div className="carComponent" onClick={this.changeFocus.bind(this)}>
         <span className="carPosition">{this.props.car.carUpdate.position}</span>
         <span className="carNumber">{this.props.car.carInfo.RaceNumber}</span>
         <span className="carPositionDriverName">
           {
             this.props.car.carInfo.drivers[this.props.car.carUpdate.driverIndex]
-              .FirstName
-          }{" "}
+              .FirstName[0]
+          }{". "}
           {
             this.props.car.carInfo.drivers[this.props.car.carUpdate.driverIndex]
               .LastName
           }
         </span>
         <span className="carPositionLaps">{this.props.car.carUpdate.laps}</span>
-        <span className="carPositionLocation">{this.state.location}</span>
+        <span className="carPositionLocation">{carLocation(this.props.car.carUpdate.carLocationNo)}</span>
         <span className="carPositionDelta">
           {this.props.car.carUpdate.delta}
         </span>
         <span className="carPositionCurrentLap">
-          {this.props.car.carUpdate.currentLap.LapTimeMS}
+          {msToTime(this.props.car.carUpdate.currentLap.LaptimeMS)}
         </span>
         <span className="carPositionLastLap">
-          {this.props.car.carUpdate.lastLap.LapTimeMS}
+          {msToTime(this.props.car.carUpdate.lastLap.LaptimeMS)}
         </span>
         <span className="carPositionBestLap">
-          {this.props.car.carUpdate.bestLap}
+          {msToTime(this.props.car.carUpdate.bestSessionLap.LaptimeMS)}
         </span>
       </div>
     );
+  }
+}
+
+function msToTime(s) {
+  // Pad to 2 or 3 digits, default is 2
+  function pad(n, z) {
+    z = z || 2;
+    return ("00" + n).slice(-z);
+  }
+
+  var ms = s % 1000;
+  s = (s - ms) / 1000;
+  var secs = s % 60;
+  s = (s - secs) / 60;
+  var mins = s % 60;
+  var hrs = (s - mins) / 60;
+
+  return pad(mins) + ":" + pad(secs) + "." + pad(ms, 3);
+}
+
+function carLocation(location) {
+  switch (location) {
+    case 0:
+      return "NONE";
+    case 1:
+      return "Track";
+    case 2:
+      return "Pitlane";
+    case 3:
+      return "PitEntry";
+    case 4:
+      return "PitExit";
+    default:
+      return "PIT";
   }
 }
 

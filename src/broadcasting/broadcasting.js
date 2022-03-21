@@ -1,5 +1,6 @@
 import React from "react";
 import CarComponent from "../carComponent";
+import "./broadcasting.css"
 
 export default class Broadcasting extends React.Component {
   constructor(props) {
@@ -41,7 +42,7 @@ export default class Broadcasting extends React.Component {
             <span>Car</span>
             <span>Driver</span>
             <span>Lap</span>
-            <span>Location</span>
+            <span>LOC</span>
             <span>Delta</span>
             <span>Current</span>
             <span>Last</span>

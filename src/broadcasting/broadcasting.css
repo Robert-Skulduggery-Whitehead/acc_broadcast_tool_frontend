@@ -1,0 +1,19 @@
+.carList {
+    display: grid;
+    align-items: left;
+    justify-content: left;
+    grid-template-rows: 40px 20px 20px 20px 20px 20px 20px 20px 20px 20px 20px 20px 20px 20px 20px 20px 20px 20px 20px;
+    left: 5px;
+    top: 0px;
+    position: fixed;
+}
+
+.carComponent {
+    display: grid;
+    grid-template-columns: 25px 35px 130px 50px 75px 100px 100px 100px 50px 50px 50px 50px;
+}
+
+.carComponentHeader {
+    display: grid;
+    grid-template-columns: 25px 35px 130px 50px 75px 100px 100px 100px 50px 50px 50px 50px;
+}
