@@ -7,6 +7,7 @@ export default class CarComponent extends React.Component {
   }
 
   render() {
+    console.log(this.props)
     return (
       <div>
         <span className="carPosition">

@@ -20,19 +20,6 @@ export default class Broadcasting extends React.Component {
   }
 
   render() {
-    //purge old stuff (might purge itself?)
-    if (
-      this.props.entryListCars.length ===
-        this.props.realTimeCarUpdates.length &&
-      this.props.entryListCars.length === this.props.carUpdates + 1
-    ) {
-      this.props.entryListCars.map((car, i, array) => {
-        this.props.realTimeCarUpdates.map((update, i, array) => {
-          if (car.carIndex === update.carIndex) {
-            car.carUpdate = update;
-          }
-        });
-      });
       this.props.entryListCars.sort(
         (a, b) => a.carUpdate.position > b.carUpdate.position
       );
@@ -46,7 +33,6 @@ export default class Broadcasting extends React.Component {
           <CarComponent car={carInfo} key={i} socket={this.props.socket} />
         );
       });
-    }
     return (
       <div className="broadcastingContainer">
         <div className="carList">

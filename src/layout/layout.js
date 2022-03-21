@@ -65,7 +65,7 @@ export default class Layout extends React.Component {
     });
   }
 
-  componentWillUnmount() {
+  componentWillMount() {
     socket.connect();
   }
 
