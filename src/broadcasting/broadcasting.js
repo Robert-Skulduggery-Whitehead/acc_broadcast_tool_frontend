@@ -21,9 +21,6 @@ export default class Broadcasting extends React.Component {
   }
 
   render() {
-      this.props.entryListCars.sort(
-        (a, b) => a.carUpdate.position > b.carUpdate.position
-      );
       this.state.cars = this.props.entryListCars.map((carInfo, i, array) => {
         if (i + 1 !== array.length) {
           if (carInfo.carUpdate.position === array[i + 1].carUpdate.position) {
